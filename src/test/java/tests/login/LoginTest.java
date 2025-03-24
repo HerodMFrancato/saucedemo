@@ -1,6 +1,7 @@
 package Test.login;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -24,7 +25,7 @@ public class LoginTest {
     }
 
     @Test
-    public void fazendoLogin() {
+    public void adicionarNoCarrinhoEValidarValor() {
         WebDriverWait wait = new WebDriverWait(navegador, 10);
         WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
         username.click();
@@ -33,6 +34,16 @@ public class LoginTest {
         password.click();
         password.sendKeys("secret_sauce");
         navegador.findElement(By.id("login-button")).click();
+        WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
+        botaoAddToCart.click();
+        WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
+        iconeCarrinho.click();
+        WebElement precoElemento = navegador.findElement(By.cssSelector("div.inventory_item_price"));
+        String precoTexto = precoElemento.getText();
+        Assert.assertEquals("29.99", precoTexto);
+
+        //WebElement botaoRemove = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_secondary.btn_inventory")));
+        //botaoRemove.click();
     }
 
     //@After
