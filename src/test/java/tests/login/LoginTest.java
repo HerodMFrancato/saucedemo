@@ -63,6 +63,30 @@ public class LoginTest {
         navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(1) > div.pricebar > button")).click();
     }
 
+    @Test
+    public void finalizarPedido() {
+        this.wait = new WebDriverWait(navegador, 10);
+        WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
+        botaoAddToCart.click();
+        WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
+        iconeCarrinho.click();
+        navegador.findElement(By.cssSelector("#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button")).click();
+        navegador.findElement(By.id("first-name")).click();
+        navegador.findElement(By.id("first-name")).sendKeys("Teste");
+        navegador.findElement(By.id("last-name")).click();
+        navegador.findElement(By.id("last-name")).sendKeys("Teste");
+        navegador.findElement(By.id("postal-code")).click();
+        navegador.findElement(By.id("postal-code")).sendKeys("00000000");
+        navegador.findElement(By.cssSelector("#checkout_info_container > div > form > div.checkout_buttons > input")).click();
+        navegador.findElement(By.cssSelector("#checkout_summary_container > div > div.summary_info > div.cart_footer > a.btn_action.cart_button")).click();
+        WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@class='complete-header' and text()='THANK YOU FOR YOUR ORDER']")));
+        if (message.isDisplayed()) {
+            System.out.println("Mensagem validada com sucesso!");
+        } else {
+            System.out.println("Erro ao validar a mensagem.");
+        }
+    }
+
     //@After
     public void tearDown() {
         if (navegador != null) {
