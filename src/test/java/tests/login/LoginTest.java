@@ -22,10 +22,6 @@ public class LoginTest {
         navegador.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         navegador.manage().window().maximize();
         navegador.get("https://www.saucedemo.com/v1/");
-    }
-
-    @Test
-    public void adicionarNoCarrinhoEValidarValor() {
         WebDriverWait wait = new WebDriverWait(navegador, 10);
         WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
         username.click();
@@ -34,6 +30,11 @@ public class LoginTest {
         password.click();
         password.sendKeys("secret_sauce");
         navegador.findElement(By.id("login-button")).click();
+    }
+
+    @Test
+    public void adicionarNoCarrinhoEValidarValor() {
+        WebDriverWait wait = new WebDriverWait(navegador, 10);
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
@@ -41,9 +42,16 @@ public class LoginTest {
         WebElement precoElemento = navegador.findElement(By.cssSelector("div.inventory_item_price"));
         String precoTexto = precoElemento.getText();
         Assert.assertEquals("29.99", precoTexto);
+    }
 
-        //WebElement botaoRemove = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_secondary.btn_inventory")));
-        //botaoRemove.click();
+    @Test
+    public void removerProdutoDoCarrinho() {
+        WebDriverWait wait = new WebDriverWait(navegador, 10);
+        WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
+        botaoAddToCart.click();
+        WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
+        iconeCarrinho.click();
+        navegador.findElement(By.cssSelector("#cart_contents_container > div > div.cart_list > div.cart_item > div.cart_item_label > div.item_pricebar > button")).click();
     }
 
     //@After
