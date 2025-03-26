@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
     private WebDriver navegador;
+    private WebDriverWait wait;
 
     @Before
     public void setUp() {
@@ -22,7 +23,7 @@ public class LoginTest {
         navegador.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         navegador.manage().window().maximize();
         navegador.get("https://www.saucedemo.com/v1/");
-        WebDriverWait wait = new WebDriverWait(navegador, 10);
+        this.wait = new WebDriverWait(navegador, 10);
         WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
         username.click();
         username.sendKeys("standard_user");
@@ -34,7 +35,7 @@ public class LoginTest {
 
     @Test
     public void adicionarNoCarrinhoEValidarValor() {
-        WebDriverWait wait = new WebDriverWait(navegador, 10);
+        this.wait = new WebDriverWait(navegador, 10);
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
@@ -46,12 +47,20 @@ public class LoginTest {
 
     @Test
     public void removerProdutoDoCarrinho() {
-        WebDriverWait wait = new WebDriverWait(navegador, 10);
+        this.wait = new WebDriverWait(navegador, 10);
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
         iconeCarrinho.click();
         navegador.findElement(By.cssSelector("#cart_contents_container > div > div.cart_list > div.cart_item > div.cart_item_label > div.item_pricebar > button")).click();
+    }
+
+    @Test
+    public void adicionarERemoverProdutoInicial() {
+        this.wait = new WebDriverWait(navegador, 10);
+        WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
+        botaoAddToCart.click();
+        navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(1) > div.pricebar > button")).click();
     }
 
     //@After
