@@ -87,6 +87,17 @@ public class LoginTest {
         }
     }
 
+    @Test
+    public void adicionarMaisDeUmProdutoNoCarrinho() {
+        this.wait = new WebDriverWait(navegador, 10);
+        WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
+        botaoAddToCart.click();
+        navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(2) > div.pricebar > button")).click();
+        navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(3) > div.pricebar > button")).click();
+        WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
+        iconeCarrinho.click();
+    }
+
     //@After
     public void tearDown() {
         if (navegador != null) {
