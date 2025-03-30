@@ -23,6 +23,24 @@ public class LoginTest {
         navegador.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         navegador.manage().window().maximize();
         navegador.get("https://www.saucedemo.com/v1/");
+    }
+
+    @Test
+    public void loginComSenhaErrada() {
+        this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("standard_user");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("123456");
+        navegador.findElement(By.id("login-button")).click();
+        WebElement errorMessage = navegador.findElement(By.xpath("//h3[@data-test='error']"));
+        System.out.println("Mensagem de erro capturada: " + errorMessage.getText());
+    }
+
+    @Test
+    public void adicionarNoCarrinhoEValidarValor() {
         this.wait = new WebDriverWait(navegador, 10);
         WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
         username.click();
@@ -31,11 +49,6 @@ public class LoginTest {
         password.click();
         password.sendKeys("secret_sauce");
         navegador.findElement(By.id("login-button")).click();
-    }
-
-    @Test
-    public void adicionarNoCarrinhoEValidarValor() {
-        this.wait = new WebDriverWait(navegador, 10);
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
@@ -48,6 +61,13 @@ public class LoginTest {
     @Test
     public void removerProdutoDoCarrinho() {
         this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("standard_user");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("secret_sauce");
+        navegador.findElement(By.id("login-button")).click();
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
@@ -58,6 +78,13 @@ public class LoginTest {
     @Test
     public void adicionarERemoverProdutoInicial() {
         this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("standard_user");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("secret_sauce");
+        navegador.findElement(By.id("login-button")).click();
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(1) > div.pricebar > button")).click();
@@ -66,6 +93,13 @@ public class LoginTest {
     @Test
     public void finalizarPedido() {
         this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("standard_user");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("secret_sauce");
+        navegador.findElement(By.id("login-button")).click();
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         WebElement iconeCarrinho = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("svg.fa-shopping-cart")));
@@ -90,6 +124,13 @@ public class LoginTest {
     @Test
     public void adicionarMaisDeUmProdutoNoCarrinho() {
         this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("standard_user");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("secret_sauce");
+        navegador.findElement(By.id("login-button")).click();
         WebElement botaoAddToCart = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn_primary.btn_inventory")));
         botaoAddToCart.click();
         navegador.findElement(By.cssSelector("#inventory_container > div > div:nth-child(2) > div.pricebar > button")).click();
