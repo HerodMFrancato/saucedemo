@@ -18,7 +18,7 @@ public class LoginTest {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "/Users/herodfrancato/drivers/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C://drivers//chromedriver.exe");
         navegador = new ChromeDriver();
         navegador.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         navegador.manage().window().maximize();
@@ -34,6 +34,20 @@ public class LoginTest {
         WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
         password.click();
         password.sendKeys("123456");
+        navegador.findElement(By.id("login-button")).click();
+        WebElement errorMessage = navegador.findElement(By.xpath("//h3[@data-test='error']"));
+        System.out.println("Mensagem de erro capturada: " + errorMessage.getText());
+    }
+
+    @Test
+    public void loginComUsuarioErrado() {
+        this.wait = new WebDriverWait(navegador, 10);
+        WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("user-name")));
+        username.click();
+        username.sendKeys("test");
+        WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        password.click();
+        password.sendKeys("secret_sauce");
         navegador.findElement(By.id("login-button")).click();
         WebElement errorMessage = navegador.findElement(By.xpath("//h3[@data-test='error']"));
         System.out.println("Mensagem de erro capturada: " + errorMessage.getText());
